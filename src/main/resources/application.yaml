@@ -12,17 +12,23 @@ spring:
       connection-timeout: 5000
       maximum-pool-size: 10
   profiles:
-    active: jdbc
+    active: jdbc,dev
 
   config:
+#    import=configserver:
     import: optional:configserver:http://localhost:8888
   cloud:
     config:
 #      uri: http://localhost:8888
-      label: 1.0
+      label: 1.1
       profile: dev
       import-check:
         enabled: false
+
+    bus:
+      enabled: true
+      refresh:
+        enabled: true
 app:
   config:
     configA: ConfigA - static
@@ -32,7 +38,7 @@ app:
 
 scheduler:
   interval: 10000
-  enabled: true
+  enabled: false
 
 #      Add a spring.config.import=configserver: property to your configuration.
 #        If configuration is not required add spring.config.import=optional:configserver: instead.
